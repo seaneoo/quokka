@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(value = "quokka")
 @Data
-public class QuokkaProperties {
+public class ApplicationProperties {
 
 	private Argon2 argon2;
 

@@ -1,6 +1,6 @@
 package dev.seano.quokka.auth;
 
-import dev.seano.quokka.QuokkaProperties;
+import dev.seano.quokka.ApplicationProperties;
 import dev.seano.quokka.user.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,11 +16,11 @@ public class AuthConfig {
 
 	private final UserRepository userRepository;
 
-	private final QuokkaProperties quokkaProperties;
+	private final ApplicationProperties applicationProperties;
 
-	public AuthConfig(UserRepository userRepository, QuokkaProperties quokkaProperties) {
+	public AuthConfig(UserRepository userRepository, ApplicationProperties applicationProperties) {
 		this.userRepository = userRepository;
-		this.quokkaProperties = quokkaProperties;
+		this.applicationProperties = applicationProperties;
 	}
 
 	@Bean
@@ -31,9 +31,9 @@ public class AuthConfig {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new Argon2PasswordEncoder(quokkaProperties.getArgon2().getSaltLength(),
-			quokkaProperties.getArgon2().getHashLength(), quokkaProperties.getArgon2().getParallelism(),
-			quokkaProperties.getArgon2().getMemory(), quokkaProperties.getArgon2().getIterations());
+		return new Argon2PasswordEncoder(applicationProperties.getArgon2().getSaltLength(),
+			applicationProperties.getArgon2().getHashLength(), applicationProperties.getArgon2().getParallelism(),
+			applicationProperties.getArgon2().getMemory(), applicationProperties.getArgon2().getIterations());
 	}
 
 	@Bean
