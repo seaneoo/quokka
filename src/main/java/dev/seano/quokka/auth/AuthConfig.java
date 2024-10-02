@@ -1,5 +1,6 @@
 package dev.seano.quokka.auth;
 
+import dev.seano.quokka.QuokkaProperties;
 import dev.seano.quokka.user.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,7 +8,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -15,8 +16,11 @@ public class AuthConfig {
 
 	private final UserRepository userRepository;
 
-	public AuthConfig(UserRepository userRepository) {
+	private final QuokkaProperties quokkaProperties;
+
+	public AuthConfig(UserRepository userRepository, QuokkaProperties quokkaProperties) {
 		this.userRepository = userRepository;
+		this.quokkaProperties = quokkaProperties;
 	}
 
 	@Bean
@@ -27,8 +31,9 @@ public class AuthConfig {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		// TODO 2024-10-01, 19:57 Implement Argon2 password encoder
-		return new BCryptPasswordEncoder();
+		return new Argon2PasswordEncoder(quokkaProperties.getArgon2().getSaltLength(),
+			quokkaProperties.getArgon2().getHashLength(), quokkaProperties.getArgon2().getParallelism(),
+			quokkaProperties.getArgon2().getMemory(), quokkaProperties.getArgon2().getIterations());
 	}
 
 	@Bean
