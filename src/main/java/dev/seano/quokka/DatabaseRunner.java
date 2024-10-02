@@ -1,7 +1,7 @@
 package dev.seano.quokka;
 
 import dev.seano.quokka.user.UserEntity;
-import dev.seano.quokka.user.UserRepository;
+import dev.seano.quokka.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class DatabaseRunner implements CommandLineRunner {
 
-	private final UserRepository userRepository;
+	private final UserService userService;
 
 	private final PasswordEncoder passwordEncoder;
 
-	public DatabaseRunner(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-		this.userRepository = userRepository;
+	public DatabaseRunner(UserService userService, PasswordEncoder passwordEncoder) {
+		this.userService = userService;
 		this.passwordEncoder = passwordEncoder;
 	}
 
@@ -24,7 +24,7 @@ public class DatabaseRunner implements CommandLineRunner {
 	public void run(String... args) {
 		try {
 			var user = UserEntity.builder().username("user").password(passwordEncoder.encode("changeme")).build();
-			userRepository.save(user);
+			userService.save(user);
 		} catch (Exception e) {
 			log.warn(e.getMessage());
 		}

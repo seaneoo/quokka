@@ -11,14 +11,14 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-	private final UserRepository userRepository;
+	private final UserService userService;
 
-	public UserController(UserRepository userRepository) {
-		this.userRepository = userRepository;
+	public UserController(UserService userService) {
+		this.userService = userService;
 	}
 
 	@GetMapping
 	public ResponseEntity<List<UserDTO>> getUsers() {
-		return ResponseEntity.ok(userRepository.findAll().stream().map(UserDTO::new).toList());
+		return ResponseEntity.ok(userService.findAll());
 	}
 }

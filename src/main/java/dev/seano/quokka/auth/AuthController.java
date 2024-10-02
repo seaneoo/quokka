@@ -2,7 +2,7 @@ package dev.seano.quokka.auth;
 
 import dev.seano.quokka.user.UserDTO;
 import dev.seano.quokka.user.UserEntity;
-import dev.seano.quokka.user.UserRepository;
+import dev.seano.quokka.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
-	private final UserRepository userRepository;
+	private final UserService userService;
 
 	private final PasswordEncoder passwordEncoder;
 
-	public AuthController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-		this.userRepository = userRepository;
+	public AuthController(UserService userService, PasswordEncoder passwordEncoder) {
+		this.userService = userService;
 		this.passwordEncoder = passwordEncoder;
 	}
 
@@ -31,7 +31,7 @@ public class AuthController {
 			.username(request.getUsername())
 			.password(passwordEncoder.encode(request.getPassword()))
 			.build();
-		var createdUser = userRepository.save(user);
+		var createdUser = userService.save(user);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new UserDTO(createdUser));
 	}
 }
