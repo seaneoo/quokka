@@ -1,0 +1,16 @@
+meta {
+  name: getUsers
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/api/user
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: user
+  password: changeme
+}
