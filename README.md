@@ -1,5 +1,11 @@
 # Quokka
 
+## Contributors
+
+<a href="https://github.com/seaneoo/quokka/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=seaneoo/quokka"  alt=""/>
+</a>
+
 ## License
 
 Copyright (C) 2024 Sean O'Connor
