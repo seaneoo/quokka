@@ -18,7 +18,7 @@ public class UserController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<User>> getUsers() {
+	public ResponseEntity<List<UserEntity>> getUsers() {
 		return ResponseEntity.ok(userRepository.findAll());
 	}
 }
