@@ -1,0 +1,14 @@
+name: quokka
+
+services:
+  postgres:
+    image: postgres:17.0-alpine3.20
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=quokka
+      - POSTGRES_USER=quokka
+      - POSTGRES_PASSWORD=changeme
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    restart: unless-stopped
