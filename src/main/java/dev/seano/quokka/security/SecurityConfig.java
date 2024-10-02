@@ -23,7 +23,10 @@ public class SecurityConfig {
 			.csrf(CsrfConfigurer::disable)
 			.httpBasic(Customizer.withDefaults())
 			.formLogin(FormLoginConfigurer::disable)
-			.authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().permitAll())
+			.authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers("/user/**")
+				.authenticated()
+				.anyRequest()
+				.permitAll())
 			.sessionManagement(
 				sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		return http.build();
