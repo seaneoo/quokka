@@ -18,7 +18,7 @@ public class UserController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<User>> getUsers() {
-		return ResponseEntity.ok(userRepository.findAll().stream().map(User::new).toList());
+	public ResponseEntity<List<UserDTO>> getUsers() {
+		return ResponseEntity.ok(userRepository.findAll().stream().map(UserDTO::new).toList());
 	}
 }

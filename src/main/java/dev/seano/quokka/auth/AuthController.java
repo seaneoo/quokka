@@ -1,6 +1,6 @@
 package dev.seano.quokka.auth;
 
-import dev.seano.quokka.user.User;
+import dev.seano.quokka.user.UserDTO;
 import dev.seano.quokka.user.UserEntity;
 import dev.seano.quokka.user.UserRepository;
 import jakarta.validation.Valid;
@@ -26,12 +26,12 @@ public class AuthController {
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<User> registerUser(@RequestBody @Valid RegisterRequest request) {
+	public ResponseEntity<UserDTO> registerUser(@RequestBody @Valid RegisterRequest request) {
 		var user = UserEntity.builder()
 			.username(request.getUsername())
 			.password(passwordEncoder.encode(request.getPassword()))
 			.build();
 		var createdUser = userRepository.save(user);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new User(createdUser));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new UserDTO(createdUser));
 	}
 }

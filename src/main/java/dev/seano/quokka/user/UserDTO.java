@@ -2,14 +2,16 @@ package dev.seano.quokka.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.UUID;
 
-@Data
+@Getter
+@NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class UserDTO {
 
 	private UUID id;
 
@@ -20,7 +22,7 @@ public class User {
 	@JsonProperty("last_modified")
 	private Date lastModified;
 
-	public User(UserEntity userEntity) {
+	public UserDTO(UserEntity userEntity) {
 		this(userEntity.getId(), userEntity.getUsername(), userEntity.getCreated(), userEntity.getLastModified());
 	}
 }
