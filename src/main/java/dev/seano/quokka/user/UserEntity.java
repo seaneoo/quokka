@@ -53,6 +53,10 @@ public class UserEntity implements UserDetails {
 	@Builder.Default
 	private boolean enabled = true;
 
+	@Column(nullable = false)
+	@Builder.Default
+	private boolean emailVerified = false;
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of();
