@@ -1,6 +1,6 @@
 package dev.seano.quokka.user;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import dev.seano.quokka.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +19,7 @@ public class UserService {
 	}
 
 	public UserEntity findByEmail(String email) {
-		return userRepository.findByEmailIgnoreCase(email)
-			.orElseThrow(() -> new UsernameNotFoundException("Email not found"));
+		return userRepository.findByEmailIgnoreCase(email).orElseThrow(UserNotFoundException::new);
 	}
 
 	public UserEntity save(UserEntity userEntity) {

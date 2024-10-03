@@ -1,30 +1,23 @@
 package dev.seano.quokka.auth;
 
 import dev.seano.quokka.ApplicationProperties;
-import dev.seano.quokka.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class AuthConfig {
 
-	private final UserService userService;
+	private final CustomUserDetailsService userDetailsService;
 
 	private final ApplicationProperties applicationProperties;
 
-	public AuthConfig(UserService userService, ApplicationProperties applicationProperties) {
-		this.userService = userService;
+	public AuthConfig(CustomUserDetailsService userDetailsService, ApplicationProperties applicationProperties) {
+		this.userDetailsService = userDetailsService;
 		this.applicationProperties = applicationProperties;
-	}
-
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return userService::findByEmail;
 	}
 
 	@Bean
@@ -37,7 +30,7 @@ public class AuthConfig {
 	@Bean
 	public AuthenticationProvider authenticationProvider() {
 		var authenticationProvider = new DaoAuthenticationProvider();
-		authenticationProvider.setUserDetailsService(userDetailsService());
+		authenticationProvider.setUserDetailsService(userDetailsService);
 		authenticationProvider.setPasswordEncoder(passwordEncoder());
 		return authenticationProvider;
 	}
