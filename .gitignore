@@ -146,3 +146,4 @@ gradle-app.setting
 
 ### Docker ###
 docker/postgres/
+docker/smtp4dev/

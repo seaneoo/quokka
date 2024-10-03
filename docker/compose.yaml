@@ -12,3 +12,12 @@ services:
     volumes:
       - ./postgres:/var/lib/postgresql/data
     restart: unless-stopped
+
+  smtp4dev:
+    image: rnwood/smtp4dev
+    ports:
+      - "8081:80"
+      - "2525:25"
+    volumes:
+      - ./smtp4dev:/smtp4dev
+    restart: unless-stopped
