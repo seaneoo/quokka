@@ -27,6 +27,7 @@ public class DatabaseRunner implements CommandLineRunner {
 				.email("user@example.com")
 				.username("user")
 				.password(passwordEncoder.encode("changeme"))
+				.emailVerified(true)
 				.build();
 			userService.save(user);
 		} catch (Exception e) {
