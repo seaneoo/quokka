@@ -1,4 +1,4 @@
-package dev.seano.quokka.user;
+package dev.seano.quokka.feature.user;
 
 import dev.seano.quokka.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;

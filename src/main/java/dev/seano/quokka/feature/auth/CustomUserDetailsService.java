@@ -1,7 +1,7 @@
-package dev.seano.quokka.auth;
+package dev.seano.quokka.feature.auth;
 
 import dev.seano.quokka.exception.EmailNotVerifiedException;
-import dev.seano.quokka.user.UserService;
+import dev.seano.quokka.feature.user.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

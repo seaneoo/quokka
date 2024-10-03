@@ -1,4 +1,4 @@
-package dev.seano.quokka.user;
+package dev.seano.quokka.feature.user;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

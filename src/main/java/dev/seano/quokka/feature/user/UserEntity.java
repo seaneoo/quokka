@@ -1,4 +1,4 @@
-package dev.seano.quokka.user;
+package dev.seano.quokka.feature.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

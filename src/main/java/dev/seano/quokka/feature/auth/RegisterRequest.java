@@ -1,4 +1,4 @@
-package dev.seano.quokka.auth;
+package dev.seano.quokka.feature.auth;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;

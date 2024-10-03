@@ -1,4 +1,4 @@
-package dev.seano.quokka.user;
+package dev.seano.quokka.feature.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

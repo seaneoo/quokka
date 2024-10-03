@@ -1,6 +1,6 @@
-package dev.seano.quokka.auth;
+package dev.seano.quokka.feature.auth;
 
-import dev.seano.quokka.user.UserDTO;
+import dev.seano.quokka.feature.user.UserDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,9 +1,9 @@
-package dev.seano.quokka.auth;
+package dev.seano.quokka.feature.auth;
 
+import dev.seano.quokka.feature.user.UserDTO;
+import dev.seano.quokka.feature.user.UserEntity;
+import dev.seano.quokka.feature.user.UserService;
 import dev.seano.quokka.mail.MailService;
-import dev.seano.quokka.user.UserDTO;
-import dev.seano.quokka.user.UserEntity;
-import dev.seano.quokka.user.UserService;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

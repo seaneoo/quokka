@@ -1,4 +1,4 @@
-package dev.seano.quokka.user;
+package dev.seano.quokka.feature.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

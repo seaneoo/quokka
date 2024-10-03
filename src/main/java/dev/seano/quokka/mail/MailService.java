@@ -1,7 +1,7 @@
 package dev.seano.quokka.mail;
 
 import dev.seano.quokka.ApplicationProperties;
-import dev.seano.quokka.user.UserEntity;
+import dev.seano.quokka.feature.user.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

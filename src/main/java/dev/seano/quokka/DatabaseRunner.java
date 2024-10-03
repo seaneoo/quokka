@@ -1,7 +1,7 @@
 package dev.seano.quokka;
 
-import dev.seano.quokka.user.UserEntity;
-import dev.seano.quokka.user.UserService;
+import dev.seano.quokka.feature.user.UserEntity;
+import dev.seano.quokka.feature.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;

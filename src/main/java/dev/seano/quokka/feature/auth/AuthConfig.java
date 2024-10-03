@@ -1,4 +1,4 @@
-package dev.seano.quokka.auth;
+package dev.seano.quokka.feature.auth;
 
 import dev.seano.quokka.ApplicationProperties;
 import org.springframework.context.annotation.Bean;

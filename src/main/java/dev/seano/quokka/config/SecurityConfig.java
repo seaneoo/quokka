@@ -1,4 +1,4 @@
-package dev.seano.quokka.security;
+package dev.seano.quokka.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
