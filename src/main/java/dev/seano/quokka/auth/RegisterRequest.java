@@ -7,6 +7,10 @@ import lombok.Data;
 @Data
 public class RegisterRequest {
 
+	@Size(max = 255)
+	@Pattern(regexp = "^.+@.+$")
+	private String email;
+
 	@Size(min = 2, max = 20)
 	@Pattern(regexp = "^\\w+$")
 	private String username;

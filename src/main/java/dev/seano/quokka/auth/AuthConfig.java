@@ -24,7 +24,7 @@ public class AuthConfig {
 
 	@Bean
 	public UserDetailsService userDetailsService() {
-		return userService::findByUsername;
+		return userService::findByEmail;
 	}
 
 	@Bean

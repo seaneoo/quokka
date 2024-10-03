@@ -18,9 +18,9 @@ public class UserService {
 		return userRepository.findAll().stream().map(UserDTO::new).toList();
 	}
 
-	public UserEntity findByUsername(String username) {
-		return userRepository.findByUsernameIgnoreCase(username)
-			.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+	public UserEntity findByEmail(String email) {
+		return userRepository.findByEmailIgnoreCase(email)
+			.orElseThrow(() -> new UsernameNotFoundException("Email not found"));
 	}
 
 	public UserEntity save(UserEntity userEntity) {

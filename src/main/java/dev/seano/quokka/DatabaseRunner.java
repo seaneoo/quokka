@@ -23,7 +23,11 @@ public class DatabaseRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 		try {
-			var user = UserEntity.builder().username("user").password(passwordEncoder.encode("changeme")).build();
+			var user = UserEntity.builder()
+				.email("user@example.com")
+				.username("user")
+				.password(passwordEncoder.encode("changeme"))
+				.build();
 			userService.save(user);
 		} catch (Exception e) {
 			log.warn(e.getMessage());

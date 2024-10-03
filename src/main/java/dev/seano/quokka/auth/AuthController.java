@@ -28,6 +28,7 @@ public class AuthController {
 	@PostMapping("/register")
 	public ResponseEntity<UserDTO> registerUser(@RequestBody @Valid RegisterRequest request) {
 		var user = UserEntity.builder()
+			.email(request.getEmail())
 			.username(request.getUsername())
 			.password(passwordEncoder.encode(request.getPassword()))
 			.build();

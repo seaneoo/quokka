@@ -30,6 +30,10 @@ public class UserEntity implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 
+	@Column(unique = true, nullable = false)
+	@ColumnTransformer(write = "LOWER(?)")
+	private String email;
+
 	@Column(unique = true, nullable = false, length = 20)
 	@ColumnTransformer(write = "LOWER(?)")
 	private String username;
