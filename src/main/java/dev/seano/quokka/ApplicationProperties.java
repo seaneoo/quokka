@@ -11,6 +11,8 @@ public class ApplicationProperties {
 
 	private Argon2 argon2;
 
+	private Mail mail;
+
 	@Data
 	public static class Argon2 {
 
@@ -38,5 +40,14 @@ public class ApplicationProperties {
 		 * Number of iterations to perform.
 		 */
 		private Integer iterations;
+	}
+
+	@Data
+	public static class Mail {
+
+		/**
+		 * The email address to send mail from.
+		 */
+		private String from;
 	}
 }
