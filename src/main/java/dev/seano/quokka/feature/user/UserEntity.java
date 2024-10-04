@@ -1,5 +1,6 @@
 package dev.seano.quokka.feature.user;
 
+import dev.seano.quokka.feature.auth.verification.EmailVerificationEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,10 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Table(name = "users")
 @Entity
@@ -56,6 +54,10 @@ public class UserEntity implements UserDetails {
 	@Column(nullable = false)
 	@Builder.Default
 	private boolean emailVerified = false;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@Builder.Default
+	private Set<EmailVerificationEntity> emailVerifications = new HashSet<>();
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
