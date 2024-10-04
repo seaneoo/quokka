@@ -1,4 +1,4 @@
-# Quokka
+![](.github/assets/banner.png)
 
 ## Contributors
 
