@@ -1,5 +1,6 @@
 package dev.seano.quokka.feature.auth.verification;
 
+import dev.seano.quokka.ApplicationProperties;
 import dev.seano.quokka.feature.user.UserEntity;
 import dev.seano.quokka.mail.MailService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +20,14 @@ public class EmailVerificationService {
 
 	private final MailService mailService;
 
-	public EmailVerificationService(EmailVerificationRepository emailVerificationRepository, MailService mailService) {
+	private final ApplicationProperties applicationProperties;
+
+	public EmailVerificationService(EmailVerificationRepository emailVerificationRepository,
+									MailService mailService,
+									ApplicationProperties applicationProperties) {
 		this.emailVerificationRepository = emailVerificationRepository;
 		this.mailService = mailService;
+		this.applicationProperties = applicationProperties;
 	}
 
 	public Optional<EmailVerificationEntity> findByCode(String code) {
@@ -44,9 +50,12 @@ public class EmailVerificationService {
 		var verificationEntity = createVerificationCode(user);
 
 		log.debug("Sending verification email to user '{}'", user.getId());
+
+		var verificationUrl = applicationProperties.getBaseUrl() + "/auth/verify?code=%s".formatted(
+			verificationEntity.getCode());
 		mailService.send(user, "Welcome to Quokka!", """
-			<p>Hello, <strong>%s</strong>!</p><p>Your verification code is: "%s". This code expires in 5 minutes.</p>""".formatted(
-			user.getUsername(), verificationEntity.getCode()));
+			<p>Hello, <strong>%s</strong>!</p><p><a href="%s">Click here to verify your email.</a></p><p>This link expires in 5 minutes.</p>""".formatted(
+			user.getUsername(), verificationUrl));
 	}
 
 	@Transactional
