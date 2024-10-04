@@ -9,6 +9,17 @@ import org.springframework.stereotype.Component;
 @Data
 public class ApplicationProperties {
 
+	/**
+	 * The host name of the application. Should be something like "http://localhost:8080" or "https://quokka.com"
+	 */
+	@SuppressWarnings("JavadocLinkAsPlainText")
+	private String host;
+
+	/**
+	 * The base URL of the application. The "host" and the "context-path" put together.
+	 */
+	private String baseUrl;
+
 	private Argon2 argon2;
 
 	private Mail mail;
