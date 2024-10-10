@@ -53,7 +53,7 @@ public class EmailVerificationService {
 
 		var verificationUrl = applicationProperties.getBaseUrl() + "/auth/verify?code=%s".formatted(
 			verificationEntity.getCode());
-		mailService.send(user, "Welcome to Quokka!", """
+		mailService.send(user, "Please verify your Quokka account", """
 			<p>Hello, <strong>%s</strong>!</p><p><a href="%s">Click here to verify your email.</a></p><p>This link expires in 5 minutes.</p>""".formatted(
 			user.getUsername(), verificationUrl));
 	}
