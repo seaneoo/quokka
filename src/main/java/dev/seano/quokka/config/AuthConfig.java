@@ -1,5 +1,6 @@
-package dev.seano.quokka.feature.auth;
+package dev.seano.quokka.config;
 
+import dev.seano.quokka.feature.auth.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
