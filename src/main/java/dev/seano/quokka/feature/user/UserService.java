@@ -18,8 +18,8 @@ public class UserService {
 		return userRepository.findAll().stream().map(UserDTO::new).toList();
 	}
 
-	public UserEntity findByEmail(String email) {
-		return userRepository.findByEmailIgnoreCase(email).orElseThrow(UserNotFoundException::new);
+	public UserEntity findByUsername(String username) {
+		return userRepository.findByUsernameIgnoreCase(username).orElseThrow(UserNotFoundException::new);
 	}
 
 	public UserEntity save(UserEntity userEntity) {

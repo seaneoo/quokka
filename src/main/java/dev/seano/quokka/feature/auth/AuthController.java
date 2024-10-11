@@ -4,9 +4,10 @@ import dev.seano.quokka.feature.user.UserDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.concurrent.ExecutionException;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
@@ -19,14 +20,8 @@ public class AuthController {
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<UserDTO> registerUser(@RequestBody @Valid RegisterRequest request) throws ExecutionException, InterruptedException {
-		var user = authService.register(request).get();
+	public ResponseEntity<UserDTO> registerUser(@RequestBody @Valid RegisterRequest request) {
+		var user = authService.register(request);
 		return ResponseEntity.status(HttpStatus.CREATED).body(user);
-	}
-
-	@GetMapping("/verify")
-	public ResponseEntity<UserDTO> verifyEmail(@RequestParam("code") String verificationCode) {
-		var user = authService.verifyEmail(verificationCode);
-		return ResponseEntity.ok(user);
 	}
 }

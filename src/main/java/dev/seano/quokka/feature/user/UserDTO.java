@@ -15,8 +15,6 @@ public class UserDTO {
 
 	private UUID id;
 
-	private String email;
-
 	private String username;
 
 	private ZonedDateTime created;
@@ -25,7 +23,6 @@ public class UserDTO {
 	private ZonedDateTime lastModified;
 
 	public UserDTO(UserEntity userEntity) {
-		this(userEntity.getId(), userEntity.getEmail(), userEntity.getUsername(), userEntity.getCreated(),
-			userEntity.getLastModified());
+		this(userEntity.getId(), userEntity.getUsername(), userEntity.getCreated(), userEntity.getLastModified());
 	}
 }

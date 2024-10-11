@@ -1,6 +1,5 @@
 package dev.seano.quokka.feature.user;
 
-import dev.seano.quokka.feature.auth.verification.EmailVerificationEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +13,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
 @Table(name = "users")
 @Entity
@@ -28,10 +29,6 @@ public class UserEntity implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
-
-	@Column(unique = true, nullable = false)
-	@ColumnTransformer(write = "LOWER(?)")
-	private String email;
 
 	@Column(unique = true, nullable = false, length = 20)
 	@ColumnTransformer(write = "LOWER(?)")
@@ -51,14 +48,6 @@ public class UserEntity implements UserDetails {
 	@Column(nullable = false)
 	@Builder.Default
 	private boolean enabled = true;
-
-	@Column(nullable = false)
-	@Builder.Default
-	private boolean emailVerified = false;
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	@Builder.Default
-	private Set<EmailVerificationEntity> emailVerifications = new HashSet<>();
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

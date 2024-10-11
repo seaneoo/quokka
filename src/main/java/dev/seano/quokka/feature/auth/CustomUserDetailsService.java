@@ -1,6 +1,5 @@
 package dev.seano.quokka.feature.auth;
 
-import dev.seano.quokka.exception.EmailNotVerifiedException;
 import dev.seano.quokka.feature.user.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,8 +17,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		var user = userService.findByEmail(username);
-		if (!user.isEmailVerified()) throw new EmailNotVerifiedException();
-		return user;
+		return userService.findByUsername(username);
 	}
 }
