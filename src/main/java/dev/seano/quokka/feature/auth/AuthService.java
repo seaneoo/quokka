@@ -1,8 +1,9 @@
 package dev.seano.quokka.feature.auth;
 
-import dev.seano.quokka.feature.user.UserDTO;
+import dev.seano.quokka.feature.auth.req.UserRegisterRequest;
 import dev.seano.quokka.feature.user.UserEntity;
 import dev.seano.quokka.feature.user.UserService;
+import dev.seano.quokka.feature.user.res.UserResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class AuthService {
 	}
 
 	@Transactional
-	public UserDTO register(RegisterRequest request) {
+	public UserResponse register(UserRegisterRequest request) {
 		log.debug("Creating new user with username '{}'", request.getUsername());
 		var user = UserEntity.builder()
 			.username(request.getUsername())
@@ -31,6 +32,6 @@ public class AuthService {
 
 		var createdUser = userService.save(user);
 		log.debug("Created new user '{}'", createdUser.getId());
-		return new UserDTO(createdUser);
+		return new UserResponse(createdUser);
 	}
 }

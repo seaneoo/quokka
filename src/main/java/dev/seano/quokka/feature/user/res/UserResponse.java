@@ -1,6 +1,7 @@
-package dev.seano.quokka.feature.user;
+package dev.seano.quokka.feature.user.res;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import dev.seano.quokka.feature.user.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserResponse {
 
 	private UUID id;
 
@@ -22,7 +23,7 @@ public class UserDTO {
 	@JsonProperty("last_modified")
 	private ZonedDateTime lastModified;
 
-	public UserDTO(UserEntity userEntity) {
+	public UserResponse(UserEntity userEntity) {
 		this(userEntity.getId(), userEntity.getUsername(), userEntity.getCreated(), userEntity.getLastModified());
 	}
 }

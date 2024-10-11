@@ -1,6 +1,7 @@
 package dev.seano.quokka.feature.user;
 
 import dev.seano.quokka.exception.UserNotFoundException;
+import dev.seano.quokka.feature.user.res.UserResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +15,8 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 
-	public List<UserDTO> findAll() {
-		return userRepository.findAll().stream().map(UserDTO::new).toList();
+	public List<UserResponse> findAll() {
+		return userRepository.findAll().stream().map(UserResponse::new).toList();
 	}
 
 	public UserEntity findByUsername(String username) {
