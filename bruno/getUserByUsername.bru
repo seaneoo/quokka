@@ -1,0 +1,20 @@
+meta {
+  name: getUserByUsername
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:8080/api/user/:username
+  body: none
+  auth: basic
+}
+
+params:path {
+  username: user
+}
+
+auth:basic {
+  username: johnsmith
+  password: changeme
+}

@@ -3,6 +3,7 @@ package dev.seano.quokka.feature.user;
 import dev.seano.quokka.feature.user.res.UserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,5 +22,10 @@ public class UserController {
 	@GetMapping
 	public ResponseEntity<List<UserResponse>> getUsers() {
 		return ResponseEntity.ok(userService.findAll());
+	}
+
+	@GetMapping("/{username}")
+	public ResponseEntity<UserResponse> getUserByUsername(@PathVariable String username) {
+		return ResponseEntity.ok(new UserResponse(userService.findByUsername(username)));
 	}
 }
