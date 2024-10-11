@@ -1,12 +1,11 @@
 package dev.seano.quokka.config;
 
+import dev.seano.quokka.util.DateTimeUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.Optional;
 
 @Configuration
@@ -15,6 +14,6 @@ public class JpaConfig {
 
 	@Bean
 	public DateTimeProvider utcDateTimeProvider() {
-		return () -> Optional.of(LocalDateTime.now(ZoneOffset.UTC));
+		return () -> Optional.of(DateTimeUtils.now());
 	}
 }

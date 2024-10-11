@@ -13,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.ZonedDateTime;
 import java.util.*;
 
 @Table(name = "users")
@@ -41,11 +42,11 @@ public class UserEntity implements UserDetails {
 
 	@Column(nullable = false, updatable = false)
 	@CreatedDate
-	private Date created;
+	private ZonedDateTime created;
 
 	@Column(nullable = false)
 	@LastModifiedDate
-	private Date lastModified;
+	private ZonedDateTime lastModified;
 
 	@Column(nullable = false)
 	@Builder.Default

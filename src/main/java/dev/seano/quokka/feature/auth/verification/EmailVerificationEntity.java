@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Table(name = "email_verifications")
@@ -30,10 +30,10 @@ public class EmailVerificationEntity {
 
 	@Column(nullable = false, updatable = false)
 	@CreatedDate
-	private Date created;
+	private ZonedDateTime created;
 
 	@Column(nullable = false, updatable = false)
-	private Date expires;
+	private ZonedDateTime expires;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
@@ -42,6 +42,6 @@ public class EmailVerificationEntity {
 	@PrePersist
 	private void prePersist() {
 		code = UUID.randomUUID().toString();
-		expires = new Date(created.getTime() + 5 * 60 * 1000);
+		expires = created.plusSeconds(30);
 	}
 }

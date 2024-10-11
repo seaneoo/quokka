@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Getter
@@ -19,10 +19,10 @@ public class UserDTO {
 
 	private String username;
 
-	private Date created;
+	private ZonedDateTime created;
 
 	@JsonProperty("last_modified")
-	private Date lastModified;
+	private ZonedDateTime lastModified;
 
 	public UserDTO(UserEntity userEntity) {
 		this(userEntity.getId(), userEntity.getEmail(), userEntity.getUsername(), userEntity.getCreated(),

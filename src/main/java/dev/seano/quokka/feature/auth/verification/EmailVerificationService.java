@@ -3,12 +3,12 @@ package dev.seano.quokka.feature.auth.verification;
 import dev.seano.quokka.ApplicationProperties;
 import dev.seano.quokka.feature.user.UserEntity;
 import dev.seano.quokka.mail.MailService;
+import dev.seano.quokka.util.DateTimeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -66,7 +66,7 @@ public class EmailVerificationService {
 		if (verificationEntityOptional.isEmpty()) throw new RuntimeException("Invalid verification code");
 
 		var expires = verificationEntityOptional.get().getExpires();
-		if (expires.before(new Date())) throw new RuntimeException("Expired verification code");
+		if (expires.isBefore(DateTimeUtils.now())) throw new RuntimeException("Expired verification code");
 
 		var user = verificationEntityOptional.get().getUser();
 		if (user.isEmailVerified()) throw new RuntimeException("Email already verified");
