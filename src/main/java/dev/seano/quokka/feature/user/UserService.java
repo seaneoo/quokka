@@ -19,11 +19,11 @@ public class UserService {
 		return userRepository.findAll().stream().map(UserResponse::new).toList();
 	}
 
-	public UserEntity findByUsername(String username) {
+	public User findByUsername(String username) {
 		return userRepository.findByUsernameIgnoreCase(username).orElseThrow(UserNotFoundException::new);
 	}
 
-	public UserEntity save(UserEntity userEntity) {
-		return userRepository.save(userEntity);
+	public User save(User user) {
+		return userRepository.save(user);
 	}
 }

@@ -1,6 +1,6 @@
 package dev.seano.quokka;
 
-import dev.seano.quokka.feature.user.UserEntity;
+import dev.seano.quokka.feature.user.User;
 import dev.seano.quokka.feature.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -23,7 +23,7 @@ public class DatabaseRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 		try {
-			var user = UserEntity.builder().username("user").password(passwordEncoder.encode("changeme")).build();
+			var user = User.builder().username("user").password(passwordEncoder.encode("changeme")).build();
 			userService.save(user);
 		} catch (Exception e) {
 			log.warn(e.getMessage());

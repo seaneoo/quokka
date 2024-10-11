@@ -1,7 +1,7 @@
 package dev.seano.quokka.feature.user.res;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import dev.seano.quokka.feature.user.UserEntity;
+import dev.seano.quokka.feature.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ public class UserResponse {
 	@JsonProperty("last_modified")
 	private ZonedDateTime lastModified;
 
-	public UserResponse(UserEntity userEntity) {
-		this(userEntity.getId(), userEntity.getUsername(), userEntity.getCreated(), userEntity.getLastModified());
+	public UserResponse(User user) {
+		this(user.getId(), user.getUsername(), user.getCreated(), user.getLastModified());
 	}
 }

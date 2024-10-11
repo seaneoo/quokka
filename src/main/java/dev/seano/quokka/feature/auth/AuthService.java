@@ -1,7 +1,7 @@
 package dev.seano.quokka.feature.auth;
 
 import dev.seano.quokka.feature.auth.req.UserRegisterRequest;
-import dev.seano.quokka.feature.user.UserEntity;
+import dev.seano.quokka.feature.user.User;
 import dev.seano.quokka.feature.user.UserService;
 import dev.seano.quokka.feature.user.res.UserResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class AuthService {
 	@Transactional
 	public UserResponse register(UserRegisterRequest request) {
 		log.debug("Creating new user with username '{}'", request.getUsername());
-		var user = UserEntity.builder()
+		var user = User.builder()
 			.username(request.getUsername())
 			.password(passwordEncoder.encode(request.getPassword()))
 			.build();
