@@ -1,13 +1,11 @@
 package dev.seano.quokka.feature.user;
 
 import dev.seano.quokka.feature.user.res.UserResponse;
+import dev.seano.quokka.res.PagedResponse;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -20,8 +18,10 @@ public class UserController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<UserResponse>> getUsers() {
-		return ResponseEntity.ok(userService.findAll());
+	public ResponseEntity<PagedResponse<UserResponse>> getUsers(@RequestParam(required = false, defaultValue = "1") int page,
+																@RequestParam(required = false, defaultValue = "10") int size) {
+		var pageRequest = PageRequest.of(page - 1, size, Sort.by("created"));
+		return ResponseEntity.ok(new PagedResponse<>(userService.findAllPageable(pageRequest)));
 	}
 
 	@GetMapping("/{username}")

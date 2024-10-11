@@ -5,9 +5,14 @@ meta {
 }
 
 get {
-  url: http://localhost:8080/api/user
+  url: http://localhost:8080/api/user?page=1&size=10
   body: none
   auth: basic
+}
+
+params:query {
+  page: 1
+  size: 10
 }
 
 auth:basic {
