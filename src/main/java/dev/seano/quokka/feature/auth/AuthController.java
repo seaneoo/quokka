@@ -1,6 +1,8 @@
 package dev.seano.quokka.feature.auth;
 
+import dev.seano.quokka.feature.auth.req.UserAuthenticationRequest;
 import dev.seano.quokka.feature.auth.req.UserRegisterRequest;
+import dev.seano.quokka.feature.user.res.UserResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,5 +25,11 @@ public class AuthController {
 	public ResponseEntity<Object> register(@RequestBody @Valid UserRegisterRequest request) {
 		authService.register(request);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+
+	@PostMapping("/authenticate")
+	public ResponseEntity<UserResponse> authenticate(@RequestBody UserAuthenticationRequest request) {
+		var user = authService.authenticate(request);
+		return ResponseEntity.ok(user);
 	}
 }

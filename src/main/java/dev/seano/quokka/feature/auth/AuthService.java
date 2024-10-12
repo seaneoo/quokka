@@ -1,10 +1,13 @@
 package dev.seano.quokka.feature.auth;
 
+import dev.seano.quokka.exception.BadCredentialsException;
 import dev.seano.quokka.exception.UserRegistrationException;
 import dev.seano.quokka.exception.UsernameUnavailableException;
+import dev.seano.quokka.feature.auth.req.UserAuthenticationRequest;
 import dev.seano.quokka.feature.auth.req.UserRegisterRequest;
 import dev.seano.quokka.feature.user.User;
 import dev.seano.quokka.feature.user.UserService;
+import dev.seano.quokka.feature.user.res.UserResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,7 +26,7 @@ public class AuthService {
 	}
 
 	public void register(UserRegisterRequest request) {
-		log.debug("[AuthService::register] Creating new user with username '{}'", request.getUsername());
+		log.debug("[AuthService::register] Attempting to create new user '{}'", request.getUsername());
 
 		// 409 Conflict: Username is unavailable
 		if (userService.findByUsernameOptional(request.getUsername()).isPresent()) {
@@ -48,5 +51,27 @@ public class AuthService {
 			// 500 Internal Server Error: Error while creating user
 			throw new UserRegistrationException(e.getMessage());
 		}
+	}
+
+	public UserResponse authenticate(UserAuthenticationRequest request) {
+		log.debug("[AuthService::authenticate] Attempting to authenticate user '{}'", request.getUsername());
+
+		// 401 Unauthorized: Bad credentials / User not found with username
+		var user = userService.findByUsernameOptional(request.getUsername()).orElseThrow(() -> {
+			log.debug("[AuthService::authenticate] User '{}' not found", request.getUsername());
+			return new BadCredentialsException();
+		});
+		log.debug("[AuthService::authenticate] Found user matching username '{}'", user.getUsername());
+
+		// 401 Unauthorized: Bad credentials / Password mismatch
+		if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+			log.debug("[AuthService::authenticate] Could not authenticate user '{}': Password mismatch",
+				user.getUsername());
+			throw new BadCredentialsException();
+		}
+
+		log.debug("[AuthService::authenticate] Successfully authenticated user '{}'", user.getUsername());
+		// TODO 2024-10-12, 16:00 Later on this will be changed to provide the client with a Bearer token
+		return new UserResponse(user);
 	}
 }
