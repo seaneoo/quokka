@@ -49,8 +49,13 @@ public class User implements UserDetails {
 	@Builder.Default
 	private boolean enabled = true;
 
+	@Enumerated
+	@Column(nullable = false)
+	@Builder.Default
+	private Role role = Role.USER;
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of();
+		return List.of(role.getAuthority());
 	}
 }
