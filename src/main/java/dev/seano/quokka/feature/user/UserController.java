@@ -5,6 +5,7 @@ import dev.seano.quokka.res.PagedResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +18,7 @@ public class UserController {
 		this.userService = userService;
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping
 	public ResponseEntity<PagedResponse<UserResponse>> getUsers(@RequestParam(required = false, defaultValue = "1") int page,
 																@RequestParam(required = false, defaultValue = "10") int size) {
