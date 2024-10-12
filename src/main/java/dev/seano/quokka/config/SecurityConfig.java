@@ -1,8 +1,11 @@
 package dev.seano.quokka.config;
 
 import dev.seano.quokka.ApplicationProperties;
+import dev.seano.quokka.feature.user.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -49,5 +52,12 @@ public class SecurityConfig {
                 .getParallelism(), applicationProperties.getArgon2()
                 .getMemory(), applicationProperties.getArgon2()
                 .getIterations());
+    }
+
+    @Bean
+    public RoleHierarchy roleHierarchy() {
+        return RoleHierarchyImpl.fromHierarchy("%s > %s".formatted(Role.ADMIN.getAuthority()
+                .getAuthority(), Role.USER.getAuthority()
+                .getAuthority()));
     }
 }
