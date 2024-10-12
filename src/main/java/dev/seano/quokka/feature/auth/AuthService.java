@@ -1,13 +1,13 @@
 package dev.seano.quokka.feature.auth;
 
+import dev.seano.quokka.exception.UserRegistrationException;
+import dev.seano.quokka.exception.UsernameUnavailableException;
 import dev.seano.quokka.feature.auth.req.UserRegisterRequest;
 import dev.seano.quokka.feature.user.User;
 import dev.seano.quokka.feature.user.UserService;
-import dev.seano.quokka.feature.user.res.UserResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -22,16 +22,31 @@ public class AuthService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	@Transactional
-	public UserResponse register(UserRegisterRequest request) {
-		log.debug("Creating new user with username '{}'", request.getUsername());
+	public void register(UserRegisterRequest request) {
+		log.debug("[AuthService::register] Creating new user with username '{}'", request.getUsername());
+
+		// 409 Conflict: Username is unavailable
+		if (userService.findByUsernameOptional(request.getUsername()).isPresent()) {
+			log.debug("[AuthService::register] Failed to create new user '{}': Username is unavailable",
+				request.getUsername());
+			throw new UsernameUnavailableException();
+		}
+
+		// Build new user
 		var user = User.builder()
 			.username(request.getUsername())
 			.password(passwordEncoder.encode(request.getPassword()))
 			.build();
 
-		var createdUser = userService.save(user);
-		log.debug("Created new user '{}'", createdUser.getId());
-		return new UserResponse(createdUser);
+		try {
+			// Save new user to database
+			var createdUser = userService.save(user);
+			log.debug("[AuthService::register] Created new user '{}'", createdUser.getId());
+		} catch (Exception e) {
+			log.debug("[AuthService::register] Failed to create new user '{}': {}", request.getUsername(),
+				e.getMessage());
+			// 500 Internal Server Error: Error while creating user
+			throw new UserRegistrationException(e.getMessage());
+		}
 	}
 }
