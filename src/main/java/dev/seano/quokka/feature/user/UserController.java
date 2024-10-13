@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,5 +30,15 @@ public class UserController {
 	@GetMapping("/{username}")
 	public ResponseEntity<UserResponse> getUserByUsername(@PathVariable String username) {
 		return ResponseEntity.ok(new UserResponse(userService.findByUsername(username)));
+	}
+
+	// ##################
+	// Authenticated User
+	// ##################
+
+	@DeleteMapping("/me")
+	public ResponseEntity<Object> deleteAuthenticatedUser(@AuthenticationPrincipal User user) {
+		userService.delete(user);
+		return ResponseEntity.ok().build();
 	}
 }

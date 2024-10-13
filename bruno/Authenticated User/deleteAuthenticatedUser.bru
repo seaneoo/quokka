@@ -1,0 +1,16 @@
+meta {
+  name: deleteAuthenticatedUser
+  type: http
+  seq: 1
+}
+
+delete {
+  url: http://localhost:8080/api/user/me
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: johnsmith
+  password: changeme
+}
