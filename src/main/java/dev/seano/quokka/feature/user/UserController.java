@@ -36,6 +36,11 @@ public class UserController {
 	// Authenticated User
 	// ##################
 
+	@GetMapping("/me")
+	public ResponseEntity<UserResponse> getAuthenticatedUser(@AuthenticationPrincipal User user) {
+		return ResponseEntity.ok(new UserResponse(user));
+	}
+
 	@DeleteMapping("/me")
 	public ResponseEntity<Object> deleteAuthenticatedUser(@AuthenticationPrincipal User user) {
 		userService.delete(user);
